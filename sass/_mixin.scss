@@ -1,0 +1,238 @@
+@mixin styprin_b-cp ($sombra, $borde: 7px) {
+    * {
+        margin:  0;
+        padding: 0;
+    }
+    body{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $color-fondo;
+        @media (max-width: 719px){
+            height: 100%;
+        }
+        .contenedor-principal {
+            max-width: 650px;
+            height: 500px;
+            box-shadow: $sombra;
+            border-radius: $borde;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: minmax(100px, 240px) 1fr;
+            grid-template-areas:
+            "header     header"
+            "main        footer";
+            @media all and (max-width: 719px) {
+                margin: {
+                    top: 50px;
+                    bottom: 50px;
+                }
+                max-width: 330px;
+                grid-template-columns: 1fr;
+                height: 730px;
+                grid-template-rows: 270px repeat(2, 230px);
+                grid-template-areas:
+                "header"
+                "main"
+                "footer";
+            }
+        }
+    }
+}
+@mixin styheader ($color_fti, $fuente_ti, $color_tesp, $fuente_sp, $color_tex, $fuente_tex) {
+    .contenedor_header {
+        grid-area: header;
+        background: white;
+        padding: {
+            top: 50px;
+            bottom: 40px;
+            left: 40px;
+            right: 40px;
+        }
+        .contenedor_header-titulo {
+            color: $color_fti;
+            font: $fuente_ti;
+            margin-bottom: 25px;
+        }
+        span {
+            color: $color_tesp;
+            font: $fuente_sp;
+        }
+        .contenedor_header-texto {
+            color: $color_tex;
+            font: $fuente_tex;
+            line-height: 25px;
+            margin-top: 15px;
+        }
+        @media all and (max-width: 719px) {
+            padding: {
+                top: 25px;
+                right: 20px;
+                bottom: 25px;
+                left: 25px;
+            }
+            .contenedor_header-titulo {
+                font-size: 21px;
+            }
+            span {
+                font-size: 16px;
+            }
+            .contenedor_header-texto {
+                font-size: 14px;
+            }
+        }
+    }
+}
+@mixin stymain($color-back, $fuente_ti-tex, $fuente_pre, $color_aftex, $color_texto, $color-backbtn) {
+    main {
+        grid-area: main;
+        background: $color-back;
+        @include stymain-conten($fuente_ti-tex, $fuente_pre, $color_aftex, $color-texto, $color-backbtn);
+    }
+}
+@mixin stymain-conten($fuente_ti-tex, $fuente_pre, $color_aftex, $color_texto, $color-backbtn) {
+    .main-contenedor {
+        box-sizing: border-box;
+        padding: {
+            top:40px;
+            bottom: 40px;
+            left: 40px;
+            right: 40px;
+        }
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        @media all and (max-width: 719px){
+            justify-content: flex-start;
+            padding: {
+                top:  25px;
+                right: 20px;
+                bottom: 25px;
+                left: 25px;
+            }
+        }
+
+        @include stymain-titulo($fuente_ti-tex);
+        @include stymain-pre($fuente-pre, $fuente_ti-tex, $color_aftex);
+        @include stymain-texto($fuente_ti-tex, $color-texto);
+        @include stybtn($color-backbtn, $fuente_ti-tex);
+    }
+}
+@mixin stymain-titulo ($fuente_ti-tex) {
+    .main-contenedor_titulo {
+        color: white;
+        font: $fuente_ti-tex;
+        font-size: 18px;
+        margin-bottom: 10px;
+        @media all and (max-width: 719px) {
+                font-size: 16px;
+        }
+    }
+}
+@mixin stymain-pre ($fuente-pre, $fuente_ti-tex, $color_aftex) {
+    .main-contenedor_precio {
+        color: white;
+        font: $fuente_pre;
+        font-size: 30px;
+        &::before {
+            content: "$";
+            color: white;
+            font: $fuente_pre;
+            font-size: 30px;
+        }
+        &::after {
+            content:"\00a0 \00a0 \00a0 per month";
+            font: $fuente_ti-tex;
+            font-size: 19px;
+            color: $color_aftex;
+        }
+        @media all and (max-width: 719px) {
+            font-size: 28px;
+            &::before {
+                font-size: 28px;
+            }
+            &::after {
+                font-size: 17px;
+            }
+        }
+    }
+}
+@mixin stymain-texto ($fuente_ti-tex, $color_texto) {
+    .main-contenedor_texto {
+        font: $fuente_ti-tex;
+        color: $color_texto;
+        margin-top: 10px;
+    }
+}
+@mixin stybtn ($color-back, $fuente)  {
+    .main-contenedor_btn {
+        width: 250px;
+        height: 50px;
+        margin-top: 20px;
+        border-radius: 6px;
+        background: $color-back;
+        font: $fuente;
+        text-align: center;
+        a {
+            display: block;
+            width: 100%;
+            height: 36px;
+            padding-top: 14px;
+            text-decoration: none;
+            color: white;
+            &:hover {
+                box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 15px;
+            }
+        }
+        @media all and (max-width: 719px) {
+            width: 100%;
+            margin-top: 30px;
+            a {
+                box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 15px;
+            }
+        }
+    }
+}
+@mixin styfooter($fuente-ti-tex, $color-fondo, $color-texto) {
+    .contenedor_footer {
+        grid-area: footer;
+        box-sizing: border-box;
+        background: $color-fondo;
+        padding: {
+            top:40px;
+            bottom: 40px;
+            left: 40px;
+            right: 40px;
+        }
+        .footer_titulo{
+            color: white;
+            font: $fuente_ti-tex;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .footer_texto {
+            font: $fuente-ti-tex;
+            color: $color-texto;
+            line-height: 25px;
+        }
+        @media all and (max-width: 719px) {
+            padding: {
+                top:  25px;
+                right: 20px;
+                bottom: 25px;
+                left: 25px;
+            }
+            .footer_titulo {
+                font-size: 16px;
+            }
+            .footer_texto {
+                font-size: 14px;
+                line-height: 20px;
+            }
+        }
+    }
+}

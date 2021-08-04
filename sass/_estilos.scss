@@ -1,0 +1,4 @@
+@include styprin_b-cp($sombra);
+@include styheader ($color-footer-titulop, $font-titulos, $color-boton-spanheader, $font-texspahe, $color-textohe, $font-texto-subti);
+@include stymain ($color-footer-titulop, $font-texto-subti, $font-titulos,  $color-texto-after, $color-texto-main, $color-boton-spanheader);
+@include styfooter ($font-texto-subti, $color-backfooter, $color-texto-footer);
